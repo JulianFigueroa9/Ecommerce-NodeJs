@@ -1,5 +1,5 @@
 class User{
-    constructor(name, lastName, books, pets){
+    constructor(name, lastName, books=[], pets=[]){
     this.name = name;
     this.lastName = lastName;
     this.books = books;
@@ -27,7 +27,7 @@ class User{
     }
 }
 
-let user = new User('Julian', 'Figueroa', {name:'1984', author:'George Orwell'}, ['Flor', 'Kora']);
+let user = new User('Julian', 'Figueroa', [{name:'1984', author:'George Orwell'}], ['Flor', 'Kora']);
 
 console.log(user.getFullName());
 
@@ -35,9 +35,9 @@ console.log(user.addPet('Mía'));
 
 console.log(user.countPets());
 
-/* console.log(user.addBook('Harry Potter', 'J.K. Rowling')); */
+console.log(user.addBook('Harry Potter', 'J.K. Rowling'));
 
-/* console.log(user.getBookNames()); */
+console.log(user.getBookNames());
 
 console.log(user.pets);
 
