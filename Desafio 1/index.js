@@ -42,7 +42,3 @@ console.log(user.getBookNames());
 console.log(user.pets);
 
 console.log(user.books);
-
-
-
-
