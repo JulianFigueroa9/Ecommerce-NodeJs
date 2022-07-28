@@ -9,13 +9,14 @@ class Container{
         try {
             let data = await fs.promises.readFile(this.route, 'utf-8');
             let dataParse = JSON.parse(data)
-            if (dataParse.length){
+            if (dataParse.length > 0){
                 await fs.promises.writeFile(this.route,JSON.stringify([...dataParse, {...object, id:dataParse[dataParse.length - 1].id + 1}], null, 2))
+                return console.log(`El ID del objeto es ${dataParse[dataParse.length-1].id + 1}`)
             } else {
                 await fs.promises.writeFile(this.route,JSON.stringify([ {...object, id:1} ], null, 2))
+                return console.log(`El ID del objeto es 1`)
             }
            
-            return console.log((`El ID del objeto es ${dataParse[dataParse.length - 1].id + 1}`))
             
         } catch (error) {
             console.log(error)
@@ -30,7 +31,7 @@ class Container{
             let dataParse = JSON.parse(data)
             let producto = dataParse.find(producto => producto.id === id)
             if(producto){
-                return console.log(producto)
+                return producto
             } else {
                 return null
             }
@@ -47,7 +48,7 @@ class Container{
             let data = await fs.promises.readFile(this.route, 'utf-8')
             let dataParse = JSON.parse(data)
             if(dataParse.length){
-                return console.log(dataParse)
+                return dataParse
             } else {
                 return null
             }
@@ -79,6 +80,12 @@ class Container{
     async deleteAll(){
         await fs.promises.writeFile(this.route,JSON.stringify([], null, 2),'utf-8')
 
+    }
+
+    async getLength(){
+        let data = await fs.promises.readFile(this.route, 'utf-8')
+        let dataParse = JSON.parse(data)
+        return dataParse.length
     }
 }
 
