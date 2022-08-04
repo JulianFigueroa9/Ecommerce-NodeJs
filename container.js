@@ -33,7 +33,7 @@ class Container{
             if(producto){
                 return producto
             } else {
-                return null
+                return {error: 'Producto no encontrado'}
             }
             
         } catch (error) {
@@ -42,6 +42,23 @@ class Container{
         }
 
     }
+
+    async updateById(object) {
+		try {
+			let data = await fs.promises.readFile(this.route, 'utf-8');
+            let dataParse = JSON.parse(data)
+			const productIndex = dataParse.findIndex(prod => prod.id === object.id);
+			if (productIndex !== -1) {
+				dataParse[productIndex] = object;
+				await fs.promises.writeFile(this.route, JSON.stringify(dataParse, null, 2));
+				return { message: "Producto actualizado" };
+			} else {
+				return { error: "Producto no encontrado" };
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
     async getAll(){
         try {
@@ -67,7 +84,7 @@ class Container{
             if(producto) {
                 let dataParseFilt = dataParse.filter(producto => producto.id !== id)
                 await fs.promises.writeFile(this.route, JSON.stringify(dataParseFilt, null, 2), 'utf-8')
-                return console.log(dataParseFilt)
+                return dataParseFilt
             } else {
                 return null
             }
