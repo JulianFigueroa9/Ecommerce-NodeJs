@@ -4,26 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main.css">
     <title>VS Pastelería</title>
 </head>
 <body>
+    <nav id="navBar">
+        <img class="logo" src="https://julianfigueroa9.github.io/Valeria-Sword-Sweet-Bakery/imagenes/logo.png">
+        <ul id="linkPages">
+            <li class="page"><a href='/products'>Catálogo de Productos</a></li>
+            <li class="page"><a id="home" href='/'>Formulario</a></li>
+        </ul>
+    </nav>
     <h1>VS PASTELERÍA</h1>
     <h2>Ingrese el producto a agregar</h2>
     <main>
-        <form action="http://localhost:8080/api/products" method="POST">
-            <div>
+        <form id="productForm" action="http://localhost:8080/products" method="POST">
+            <div class="productInputs">
                 <label>Producto</label>
                 <input type="text" name="title" placeholder="Ingrese el nombre del producto">
             </div>
-            <div>
+            <div class="productInputs">
                 <label>Precio</label>
                 <input type="number" name="price" placeholder="Ingrese el precio del producto">
             </div>
-            <div>
+            <div class="productInputs">
                 <label>Imágen</label>
                 <input type="text" name="thumbnail" placeholder="Ingrese la ruta de la imágen">
             </div>
-            <input type="submit">
+            <input id="sendBtn" type="submit">
         </form>
     </main>
 </body>

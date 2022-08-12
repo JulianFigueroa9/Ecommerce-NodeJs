@@ -1,0 +1,76 @@
+/* ----------------------------- CSS PARA INDEX ----------------------------- */
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#navBar{
+    background-color: rgba(127, 255, 212, 0.733);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#home{
+    font-weight: 600;
+}
+
+.logo{
+    width: 100px;
+    height: 100px;
+    align-self: center;
+}
+
+h1,h2{
+    margin-top: 1%;
+    margin-left: 1%;
+}
+
+
+#linkPages{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 20%;
+}
+
+.page{
+    list-style: none;
+    margin-right: 5%;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+#productForm{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1%;
+}
+
+.productInputs{
+    margin-top: 1.5%;
+}
+
+#sendBtn{
+    width: fit-content;
+    margin-top: 1.5%;
+}
+
+/* --------------------------- CSS PARA PRODUCTOS --------------------------- */
+.productPhoto{
+    width: 100px;
+    height: 100px;
+}
+
+.productList{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 1%;
+}

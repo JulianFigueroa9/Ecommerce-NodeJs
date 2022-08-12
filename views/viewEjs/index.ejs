@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main.css">
+    <title>Vista con EJS</title>
+</head>
+<body>
+    <%- include('./navBar.ejs') %>
+    <h1>Catálogo de productos</h1>
+    <% allProducts.forEach((prod)=> { %>
+            <div class="productList">
+                <h3>Producto <%= prod.id %></h3>
+                <h4>Nombre: <%= prod.title %></h5>
+                <p>Precio: $<%= prod.price %></p>
+                <img class="productPhoto" src=<%= prod.thumbnail %> class="card-img-top imagen" >
+            </div>
+    <% }) %>
+</body>
+</html>
