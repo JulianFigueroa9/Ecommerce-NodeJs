@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./main.css">
+    <script src="/socket.io/socket.io.js"></script>
     <title>VS Pastelería</title>
 </head>
 <body>
@@ -18,21 +19,39 @@
     <h1>VS PASTELERÍA</h1>
     <h2>Ingrese el producto a agregar</h2>
     <main>
-        <form id="productForm" action="http://localhost:8080/products" method="POST">
-            <div class="productInputs">
-                <label>Producto</label>
-                <input type="text" name="title" placeholder="Ingrese el nombre del producto">
-            </div>
-            <div class="productInputs">
-                <label>Precio</label>
-                <input type="number" name="price" placeholder="Ingrese el precio del producto">
-            </div>
-            <div class="productInputs">
-                <label>Imágen</label>
-                <input type="text" name="thumbnail" placeholder="Ingrese la ruta de la imágen">
-            </div>
-            <input id="sendBtn" type="submit">
-        </form>
+        <div>
+            <form onsubmit="return addProduct(this)">
+                    <input required="required" type="text" id="title" name="title" placeholder="Ingrese el nombre del producto">
+                    <input required="required" type="number" id="price" name="price" placeholder="Ingrese el precio del producto">
+                    <input required="required" type="text" id="thumbnail" name="thumbnail" placeholder="Ingrese la ruta de la imágen">
+                <input id="sendBtn" type="submit" value="Agregar producto">
+            </form>
+        </div>
+        <div>
+            <ul id="productList">
+                
+            </ul>
+        </div>
+
+
+        <div>
+            <h2>CHAT GRUPAL</h2>
+            <form onsubmit="return addMessage(this)">
+                <input required="required" type="email" id="mail" name="email" placeholder="Ingrese el mail">
+                <br>
+                <input type="text" id="mensaje" name="message" placeholder="Escriba algo">
+                <br>
+                <input type="submit" value="Enviar mensaje">
+            </form>
+        </div>
+        <div>
+            <ul id="chat">
+                
+            </ul>
+        </div>
     </main>
+
+
+    <script src="./index.js"></script>
 </body>
 </html>
