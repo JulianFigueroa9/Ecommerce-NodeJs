@@ -10,9 +10,8 @@
 </head>
 <body>
     <nav id="navBar">
-        <img class="logo" src="https://julianfigueroa9.github.io/Valeria-Sword-Sweet-Bakery/imagenes/logo.png">
+        <img class="logo" src="https://julianfigueroa9.github.io/WebProyect-HTML-CSS/imagenes/logo.png">
         <ul id="linkPages">
-            <li class="page"><a href='/products'>Catálogo de Productos</a></li>
             <li class="page"><a id="home" href='/'>Formulario</a></li>
         </ul>
     </nav>
@@ -20,34 +19,14 @@
     <h2>Ingrese el producto a agregar</h2>
     <main>
         <div>
-            <form onsubmit="return addProduct(this)">
-                    <input required="required" type="text" id="title" name="title" placeholder="Ingrese el nombre del producto">
-                    <input required="required" type="number" id="price" name="price" placeholder="Ingrese el precio del producto">
-                    <input required="required" type="text" id="thumbnail" name="thumbnail" placeholder="Ingrese la ruta de la imágen">
+            <form id="productForm" action="http://localhost:8080/api/products" method="POST">
+                <input class="productInputs" required="required" type="text" id="title" name="title" placeholder="Ingrese el nombre del producto">
+                <input class="productInputs" type="text" name="description" id="description" placeholder="Ingrese la descripción del producto">
+                <input class="productInputs" required="required" type="text" id="thumbnail" name="thumbnail" placeholder="Ingrese la ruta de la imágen">
+                <input class="productInputs" required="required" type="number" id="price" name="price" placeholder="Ingrese el precio del producto">
+                <input class="productInputs" required="required" type="number" id="stock" name="stock" placeholder="Ingrese el stock del producto">
                 <input id="sendBtn" type="submit" value="Agregar producto">
             </form>
-        </div>
-        <div>
-            <ul id="productList">
-                
-            </ul>
-        </div>
-
-
-        <div>
-            <h2>CHAT GRUPAL</h2>
-            <form onsubmit="return addMessage(this)">
-                <input required="required" type="email" id="mail" name="email" placeholder="Ingrese el mail">
-                <br>
-                <input type="text" id="mensaje" name="message" placeholder="Escriba algo">
-                <br>
-                <input type="submit" value="Enviar mensaje">
-            </form>
-        </div>
-        <div>
-            <ul id="chat">
-                
-            </ul>
         </div>
     </main>
 
