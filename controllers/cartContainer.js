@@ -12,10 +12,10 @@ class cartsContainer{
             let timestamp = Date.now()
             if (dataParse.length > 0){
                 await fs.promises.writeFile(this.route,JSON.stringify([...dataParse, {...cart, timestamp, id:dataParse[dataParse.length - 1].id + 1}], null, 2))
-                return console.log(`El ID del carrito es ${dataParse[dataParse.length-1].id + 1}`)
+                return dataParse[dataParse.length-1].id + 1
             } else {
                 await fs.promises.writeFile(this.route,JSON.stringify([ {...cart, timestamp, id:1} ], null, 2))
-                return console.log(`El ID del carrito es 1`)
+                return `1`
             }
             
         } catch (error) {
