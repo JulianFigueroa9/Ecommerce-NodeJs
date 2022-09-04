@@ -3,7 +3,7 @@ const express = require('express')
 const { Router } = express
 const cartsRouter = Router()
 
-const cartsContainer = require('../controllers/cartContainer.js')
+const cartsContainer = require('../controllers/fileControllers/cartContainer.js')
 const cart = new cartsContainer('./data/cart.txt')
 
 const admin = true
@@ -11,10 +11,10 @@ const admin = true
 /* Getting the products from the cart by ID. */
 cartsRouter.get('/:id/productos', async (req, res) => {
     const { id } = req.params;
-	const cartById = await cart.getByID(parseInt(id));
+	const cartById = await cart.getByID(parseInt(id))
     if(id == cartById.id){
         let productList = cartById.products;
-        if (productList > 0){
+        if (productList){
             res.json(
                 productList
             )  

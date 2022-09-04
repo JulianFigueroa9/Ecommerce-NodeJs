@@ -1,29 +1,27 @@
+const ContainerDB = require('../controllers/DBContollers/containerDB.js')
+const { optionsMDB } = require('../databases/config/configMariaDB.js')
+const knexMariaDB = require('knex')(optionsMDB)
+const product = new ContainerDB(knexMariaDB, 'products')
 
 const express = require('express')
 const { Router } = express
 const productsRouter = Router()
 
-const productsContainer = require("../controllers/productsContainer")
-const products = new productsContainer('./data/products.txt')
-
 const admin = true
 
 /* Getting all the products from the products.txt file. */
 productsRouter.get('/', async (req, res) => {
-    const allProducts = await products.getAll()
+    const allProducts = await product.getAll()
     res.json(
-        {
             allProducts
-
-        }
     )
 })
 
 /* Getting the products by ID. */
 productsRouter.get('/:id', async (req, res) => {
     const {id} = req.params
-    const productById = await products.getByID(+id)
-    if (id == productById.id){
+    const productById = await product.getByID(+id)
+    if (productById){
         res.json(
             productById
         )
@@ -40,8 +38,8 @@ productsRouter.get('/:id', async (req, res) => {
 productsRouter.post('/', async (req, res) => {
     if(admin){ 
         const newProduct = req.body
-        await products.save(newProduct)
-        const allProducts = await products.getAll()
+        await product.save(newProduct)
+        const allProducts = await product.getAll()
         res.json(
                 allProducts
         )
@@ -59,10 +57,10 @@ productsRouter.post('/', async (req, res) => {
 productsRouter.put('/:id', async (req, res) => {
     const {id} = req.params
     if(admin){
-        const productById = await products.getByID(+id)
+        const productById = await product.getByID(+id)
         const modifiedProduct = req.body
-        await products.updateById( {id:+id, ...modifiedProduct} )
-        if(id == productById.id){
+        await product.updateById( {id:+id, ...modifiedProduct} )
+        if(productById){
             res.json(
                 {
                     message: 'Producto modificado',
@@ -88,10 +86,10 @@ productsRouter.put('/:id', async (req, res) => {
 /* Deleting the product by ID. */
 productsRouter.delete('/:id', async (req, res) => {
     const {id} = req.params
-    const productById = await products.getByID(+id)
+    const productById = await product.getByID(+id)
     if(admin){
-        if(id == productById.id){
-            const remainingProducts = await products.deleteByID(+id)
+        if(productById){
+            const remainingProducts = await product.deleteByID(+id)
                 res.json(
                     {
                         ok: true,
