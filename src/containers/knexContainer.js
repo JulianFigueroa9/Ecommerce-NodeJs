@@ -1,4 +1,4 @@
-class ContainerDB {
+class KnexContainer {
 	constructor(knex, table) {
 		this.knex = knex;
 		this.table = table;
@@ -60,4 +60,4 @@ class ContainerDB {
 	}
 }
 
-module.exports = ContainerDB
+module.exports = KnexContainer

@@ -1,5 +1,5 @@
-const { optionsMDB } = require('./databases/config/configMariaDB.js')
-const { optionsSQL3 } = require('./databases/config/configSQLite3.js')
+const { optionsMDB } = require('../../src/databases/config/configMariaDB.js')
+const { optionsSQL3 } = require('../../src/databases/config/configSQLite3.js')
 
 const knexMariaDB = require('knex')(optionsMDB)
 const knexSqlite3 = require('knex')(optionsSQL3)
@@ -11,8 +11,6 @@ const products = [
         "thumbnail": "https://julianfigueroa9.github.io/WebProyect-HTML-CSS/imagenes/galeria6.jpg",
         "price": "2100",
         "stock": "25",
-        "timestamp": 1661398879243,
-        "code": "EAN38"
     },
     {
         "title": "Cupcake",
@@ -20,8 +18,13 @@ const products = [
         "thumbnail": "https://julianfigueroa9.github.io/WebProyect-HTML-CSS/imagenes/especialidad1.jpg",
         "price": "500",
         "stock": "200",
-        "timestamp": 1661398740434,
-        "code": "EAN92"
+    },
+    {
+        "title": "Ice Popcake",
+        "description": "Bizcochuelo con forma de helado con baño de repostería",
+        "thumbnail": "https://julianfigueroa9.github.io/WebProyect-HTML-CSS/imagenes/especialidadpopcake2.jpg",
+        "price": "600",
+        "stock": "100",
     }
 ]
 
@@ -37,8 +40,8 @@ const batchMariaDB = async () => {
             table.string('thumbnail')
             table.float('price')
             table.float('stock')
-            table.integer('timestamp')
-            table.string('code')
+            table.timestamp('timestamp')
+    
             
         })
         
@@ -99,5 +102,5 @@ const batchSqlite3 = async () =>{
     }
 }
 
-batchMariaDB()
+
 batchSqlite3()

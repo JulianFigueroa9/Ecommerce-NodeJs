@@ -1,6 +1,6 @@
 const fs= require('fs');
 
-class productsContainer{
+class FileContainer{
     constructor(route){
     this.route = route;
     }
@@ -10,16 +10,14 @@ class productsContainer{
             let data = await fs.promises.readFile(this.route, 'utf-8');
             let dataParse = JSON.parse(data)
             let timestamp = Date.now()
-            let code = `EAN${Math.ceil(Math.random()*100 + 1)}`
             if (dataParse.length > 0){
-                await fs.promises.writeFile(this.route,JSON.stringify([...dataParse, {...object, timestamp, code, id:dataParse[dataParse.length - 1].id + 1}], null, 2))
+                await fs.promises.writeFile(this.route,JSON.stringify([...dataParse, {...object, timestamp, id:dataParse[dataParse.length - 1].id + 1}], null, 2))
                 return console.log(`El ID del objeto es ${dataParse[dataParse.length-1].id + 1}`)
             } else {
-                await fs.promises.writeFile(this.route,JSON.stringify([ {...object, timestamp, code, id:1} ], null, 2))
-                return console.log(`El ID del objeto es 1`)
+                await fs.promises.writeFile(this.route,JSON.stringify([ {...object, timestamp, id:1} ], null, 2))
+                return `El ID del objeto es 1`
             }
            
-            
         } catch (error) {
             console.log(error)
             
@@ -31,11 +29,11 @@ class productsContainer{
         try {
             let data = await fs.promises.readFile(this.route, 'utf-8')
             let dataParse = JSON.parse(data)
-            let producto = dataParse.find(producto => producto.id === id)
-            if(producto){
-                return producto
+            let object = dataParse.find(object => object.id === id)
+            if(object){
+                return object
             } else {
-                return {error: 'Producto no encontrado'}
+                return {error: 'Item no encontrado'}
             }
             
         } catch (error) {
@@ -53,9 +51,9 @@ class productsContainer{
 			if (productIndex !== -1) {
 				dataParse[productIndex] = object;
 				await fs.promises.writeFile(this.route, JSON.stringify(dataParse, null, 2));
-				return { message: "Producto actualizado" };
+				return { message: "Item actualizado" };
 			} else {
-				return { error: "Producto no encontrado" };
+				return { error: "Item no encontrado" };
 			}
 		} catch (error) {
 			console.log(error);
@@ -82,9 +80,9 @@ class productsContainer{
         try {
             let data = await fs.promises.readFile(this.route, 'utf-8')
             let dataParse = JSON.parse(data)
-            let producto = dataParse.find(producto => producto.id === id)
-            if(producto) {
-                let dataParseFilt = dataParse.filter(producto => producto.id !== id)
+            let object = dataParse.find(object => object.id === id)
+            if(object) {
+                let dataParseFilt = dataParse.filter(object => object.id !== id)
                 await fs.promises.writeFile(this.route, JSON.stringify(dataParseFilt, null, 2), 'utf-8')
                 return dataParseFilt
             } else {
@@ -108,6 +106,6 @@ class productsContainer{
     }
 }
 
-module.exports= productsContainer
+module.exports= FileContainer
 
 

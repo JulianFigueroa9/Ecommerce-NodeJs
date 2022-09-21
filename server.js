@@ -1,13 +1,13 @@
-const ContainerDB = require('./controllers/DBContollers/containerDB.js')
+const KnexContainer = require('./src/containers/knexContainer.js')
 
 const productsRouter = require('./routers/productsRouter.js')
 const cartsRouter = require('./routers/cartsRouter.js')
 
-const { optionsSQL3 } = require('./databases/config/configSQLite3.js')
+const { optionsSQL3 } = require('./src/databases/sqlLite3/config/configSQLite3.js')
 
 const knexSQL3 = require('knex')(optionsSQL3)
 
-const chat = new ContainerDB(knexSQL3, 'chat')
+const chat = new KnexContainer(knexSQL3, 'chat')
 
 const express = require('express')
 const PORT = process.env.PORT || 8080
