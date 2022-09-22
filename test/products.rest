@@ -1,0 +1,8 @@
+# GET http://localhost:8080/api/products/1 # Content-Type: application/json
+
+# PUT http://localhost:8080/api/products/1 # Content-Type: application/json
+
+# { # "title": "Torta Dripcake", # "description": "Torta rellena con baño de repostería", # "thumbnail": "https://julianfigueroa9.github.io/WebProyect-HTML-CSS/imagenes/galeria6.jpg", # "price": "3000", # "stock": "25", # "timestamp": 1661398879243, # "code": "EAN38", # }
+
+# DELETE http://localhost:8080/api/products/1 # Content-Type: application/json
+

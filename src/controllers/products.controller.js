@@ -1,8 +1,11 @@
 const { response } = require("express")
-
 const { productsDao } = require('../daos/index.js')
-
 const products = productsDao
+
+const randomProductDaoMem = require ('../daos/products/randomProductsDaoMem.js')
+const randomProducts = new randomProductDaoMem()
+
+
 
 const getProducts = async (req, res = response) => {
     const allProducts = await products.getAll()
@@ -26,6 +29,12 @@ const getProductByID = async (req, res = response) => {
         )
     }
 }
+
+const getRandomProduct = async (req, res) => {
+    res.json(
+        await randomProducts.popular(5)
+    )
+} 
 
 const postProduct = async (req, res = response) => {
     if(admin){ 
@@ -114,6 +123,7 @@ const notFound = (req, res = response) => {
 module.exports = {
     getProducts,
     getProductByID,
+    getRandomProduct,
     postProduct,
     updateProductByID,
     deleteProductByID,

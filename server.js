@@ -1,6 +1,6 @@
 const KnexContainer = require('./src/containers/knexContainer.js')
 
-const productsRouter = require('./routers/productsRouter.js')
+const { productsRouter, randomProductsRouter } = require('./routers/productsRouter.js')
 const cartsRouter = require('./routers/cartsRouter.js')
 
 const { optionsSQL3 } = require('./src/databases/sqlLite3/config/configSQLite3.js')
@@ -16,6 +16,7 @@ app.use(express.json())
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended:true }))
 app.use('/api/productos', productsRouter)
+app.use('/api/productos-test', randomProductsRouter)
 app.use('/api/carrito', cartsRouter)
 
 const { Server: HTTPServer } = require('http')

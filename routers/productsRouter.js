@@ -2,8 +2,9 @@
 const express = require('express')
 const { Router } = express
 const productsRouter = Router()
+const randomProductsRouter = Router()
 
-const { getProducts, getProductByID, postProduct, updateProductByID, deleteProductByID, notFound } = require('../src/controllers/products.controller.js')
+const { getProducts, getProductByID, getRandomProduct, postProduct, updateProductByID, deleteProductByID, notFound } = require('../src/controllers/products.controller.js')
 
 const admin = true
 
@@ -12,6 +13,8 @@ productsRouter.get('/', getProducts)
 
 /* Getting the products by ID. */
 productsRouter.get('/:id', getProductByID)
+
+randomProductsRouter.get('/', getRandomProduct)
 
 /* Saving the new product in the products.txt file. */
 productsRouter.post('/', postProduct) 
@@ -25,4 +28,4 @@ productsRouter.delete('/:id', deleteProductByID)
 /* This is a catch-all route that will be executed if none of the previous routes are matched. */
 productsRouter.get('*', notFound)
 
-module.exports = productsRouter
+module.exports = { productsRouter, randomProductsRouter } 

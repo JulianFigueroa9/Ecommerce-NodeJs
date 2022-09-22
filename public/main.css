@@ -57,10 +57,19 @@ a{
     width: 30%; 
 }
 
-#sendBtn{
+#sendBtn, #addMessageBtn{
     width: fit-content;
     margin-top: 1.5%;
 }
+
+.chatForm{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1%;
+    width: 30%;
+    margin-bottom: 2%;
+}
+
 
 /* --------------------------- CSS PARA PRODUCTOS --------------------------- */
 .productPhoto{
