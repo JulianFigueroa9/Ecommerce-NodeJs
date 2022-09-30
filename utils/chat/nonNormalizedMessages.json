@@ -1,0 +1,57 @@
+[
+  {
+    "author": {
+      "id": "julian21@gmail.com",
+      "nombre": "Julian",
+      "apellido": "Figueroa",
+      "edad": "24",
+      "alias": "julianf9",
+      "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png"
+    },
+    "message": "Hola!"
+  },
+  {
+    "author": {
+      "id": "pablom1@gmail.com",
+      "nombre": "Pablo",
+      "apellido": "Martinez",
+      "edad": "26",
+      "alias": "mpablo1",
+      "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png"
+    },
+    "message": "Hola Julian, todo bien?"
+  },
+  {
+    "author": {
+      "id": "julian21@gmail.com",
+      "nombre": "Julian",
+      "apellido": "Figueroa",
+      "edad": "24",
+      "alias": "julianf9",
+      "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png"
+    },
+    "message": "Bien bien por suerte"
+  },
+  {
+    "author": {
+      "id": "juanl99e@gmail.com",
+      "nombre": "Juan",
+      "apellido": "Lopez",
+      "edad": "21",
+      "alias": "juanlop",
+      "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png"
+    },
+    "message": "Como va?"
+  },
+  {
+    "author": {
+      "id": "mical12@gmail.com",
+      "nombre": "Micaela",
+      "apellido": "Lutri",
+      "edad": "23",
+      "alias": "mlutri_22",
+      "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/woman5-512.png"
+    },
+    "message": "Hola!!!"
+  }
+]

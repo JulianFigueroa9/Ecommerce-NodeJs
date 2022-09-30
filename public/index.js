@@ -3,17 +3,11 @@ const server = io().connect()
 
 /* ---------------------------------- Chat ---------------------------------- */
 
-const renderChat = chatMessages => {
+const render = chatMessages => {
 	let chat = document.querySelector("#chat")
 	let html = chatMessages.map(mens => {
 		return `<li>
-        <h4 style="color:blue"> ${mens.mail} </h4>
-        <h4> ${mens.name} </h4>
-        <h4> ${mens.lastName} </h4>
-        <h4> ${mens.age} </h4>
-        <h4> ${mens.alias} </h4>
-		<h4> ${mens.avatar}</h4>
-		<h4 style="color:brown">${mens.date}</span>
+        <h4 style="color:blue"> ${mens.author} </h4>
         <em style="color:green"> ${mens.message} </em>
         </li>`;
 	});
@@ -27,19 +21,10 @@ const addMessage = evt => {
 	const age = document.querySelector("#age").value
 	const alias = document.querySelector("#alias").value
 	const avatar = document.querySelector("#avatar").value
-	const date = new Date().toLocaleTimeString()
 	const message = document.querySelector("#message").value
 
 	const chatText = { 
-		author: {
-			id,
-			name,
-			lastName,
-			age,
-			alias,
-			avatar,
-		},
-		date,
+		author: { id, name, lastName, age, alias, avatar },
 		message
 	}
 	
@@ -51,5 +36,5 @@ const addMessage = evt => {
 };
 
 server.on("server-message", mensaje => {
-	renderChat(mensaje.chatMessages)
+	render(mensaje.chatMessages)
 });
