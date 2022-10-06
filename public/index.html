@@ -16,10 +16,24 @@
         </ul>
     </nav>
     <h1>VS PASTELERÍA</h1>
+    <h2>Login</h2>
+    <form class="loginForm" action="http://localhost:8080/api/session/login" method="POST">
+        <div class="loginInput">
+            <label for="Usuario"></label>
+            <input required="required" type="text" id="username" placeholder="Ingresa tu usuario"/>
+        </div>
+        <div class="loginInput">
+            <label for="Password"></label>
+            <input required="required" type="password" id="password" placeholder="Ingresa tu contraseña"/>
+        </div>
+        <div class="loginInput">
+            <input type="submit" id="button" value="Ingresar" />
+        </div>
+    </form>
     <h2>Ingrese el producto a agregar</h2>
     <main>
         <div>
-            <form id="productForm" action="http://localhost:8080/api/productos" method="POST">
+            <form class="productForm" action="http://localhost:8080/api/productos" method="POST">
                 <input class="productInputs" required="required" type="text" id="title" name="title" placeholder="Ingrese el nombre del producto">
                 <input class="productInputs" type="text" name="description" id="description" placeholder="Ingrese la descripción del producto">
                 <input class="productInputs" required="required" type="text" id="thumbnail" name="thumbnail" placeholder="Ingrese la ruta de la imágen">

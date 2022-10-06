@@ -2,7 +2,7 @@ const express = require('express')
 const { Router } = express
 const cartsRouter = Router()
 
-const { getCarts, getProductsFromCartID, postNewCart, postProductToCart, deleteCartByID, deleteProductFromCart, notFound } = require('../src/controllers/carts.controller.js')
+const { getCarts, getProductsFromCartID, postNewCart, postProductToCart, deleteCartByID, deleteProductFromCart, notFound } = require('../controllers/carts.controller.js')
 
 const admin = true
 

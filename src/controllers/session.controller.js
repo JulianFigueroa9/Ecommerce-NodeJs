@@ -1,23 +1,13 @@
-const { response } = require("express")
+const { response } = require("express");
 
-const homepage = async (req, res = response) => {
-    try {
-      res.status(200).send(`<h1>Hola ${req.session.username}, esta es tu visita numero ${req.session.visits}</h1>`)
-    } catch (err) {
-      res.status(500).json({
-        success: false,
-        message: err.message,
-      });
-    }
-}
 
-const login = async (req, res = response) => {
+const postLogin = async (req, res = response) => {
     try {
-      const { username, password } = req.query;
+      const { username, password } = req.body;
+      req.session.username = username;
       if (username == "Julian" && password == "1234") {
-        req.session.username = username;
-        req.session.admin = true;
-        return res.status(200).send(`<h1>Usuario autenticado exitosamente</h1>`);
+        return res.status(200).send(`<h1>Usuario autenticado exitosamente</h1>`)
+        
       }
       return res.status(400).send(`<h1>Datos incorrectos</h1>`);
     } catch (err) {
@@ -28,6 +18,19 @@ const login = async (req, res = response) => {
     }
 }
 
+const homepage = async (req, res = response) => {
+  try {
+    res.status(200).write(`<h1>Hola ${req.session.username}, esta es tu visita numero ${req.session.visits}</h1>`)
+    res.end("<a href=" + "/api/session/logout" + ">Cerrar Sesion</a >");
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+}
+
+
 const logout = async (req, res = response) => {
     try {
       req.session.destroy(err => {
@@ -35,7 +38,9 @@ const logout = async (req, res = response) => {
               return res.status(500).send(`<h1>No se pudo cerrar sesion</h1>`)
           }
       })
-      return res.status(200).send(`<h1>Hasta la próxima</h1>`)
+      setTimeout(()=> {
+        res.redirect('/')
+      }, 2000)
     } catch (err) {
       res.status(500).json({
         success: false,
@@ -46,6 +51,6 @@ const logout = async (req, res = response) => {
 
 module.exports = {
     homepage,
-    login,
-    logout
+    logout,
+    postLogin
 }

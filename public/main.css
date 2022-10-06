@@ -46,10 +46,14 @@ a{
     color: black;
 }
 
-#productForm{
+.productForm, .loginForm{
     display: flex;
     flex-direction: column;
     margin-left: 1%;
+}
+
+.loginInput{
+    margin-top: 1%;
 }
 
 .productInputs{

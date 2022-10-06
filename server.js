@@ -7,10 +7,10 @@ const MongoStore = require('connect-mongo');
 const chatFileContainer = require('./src/containers/chatFileContainer.js')
 const exec = require("child_process").exec;
 
-const { productsRouter, randomProductsRouter } = require('./routers/productsRouter.js')
-const cartsRouter = require('./routers/cartsRouter.js')
-const sessionRouter = require('./routers/sessionRouter.js')
-const cookiesRouter = require('./routers/cookiesRouter.js')
+const { productsRouter, randomProductsRouter } = require('./src/routers/productsRouter.js')
+const cartsRouter = require('./src/routers/cartsRouter.js')
+const sessionRouter = require('./src/routers/sessionRouter.js')
+const cookiesRouter = require('./src/routers/cookiesRouter.js')
 
 const readChat = new chatFileContainer('./utils/chat/normalizedMessages.json')
 const saveChat = new chatFileContainer('./utils/chat/nonNormalizedMessages.json')
@@ -25,24 +25,29 @@ app.use(logger('dev'))
 app.use('/api/productos', productsRouter)
 app.use('/api/productos-test', randomProductsRouter)
 app.use('/api/carrito', cartsRouter)
-app.use('/api/session', sessionRouter)
-app.use('/api/cookies', cookiesRouter)
+
 
 
 /* ----------------------------- MONGODB SESSION ---------------------------- */
-const configMongoDB = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}
 
 app.use(session({
-    secret: process.env.SESSION_SECRET || '1234',
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URL,
+        mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true }
+    }),
+    secret: 'secreto',
     resave: true,
     saveUninitialized: true,
-    store: MongoStore.create({mongoUrl: process.env.MONGODB_URL, mongoOptions: configMongoDB})
+    rolling: true,
+    cookie: {
+        maxAge: 1000 * 60 * 10
+    }
 }))
 
+
 app.use(cookieParser(process.env.COOKIES_SECRET || '1234'));
+app.use('/api/cookies', cookiesRouter)
+app.use('/api/session', sessionRouter)
 
 /* ----------------------------- CHAT WEBSOCKET ----------------------------- */
 
@@ -88,6 +93,7 @@ io.on("connection", async socket => {
     })
 
 });
+
 
 /* Creating a server and listening to the port 8080. */
 const server = httpServer.listen(PORT, () => {

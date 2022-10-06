@@ -4,9 +4,8 @@ const { Router } = express
 const productsRouter = Router()
 const randomProductsRouter = Router()
 
-const { getProducts, getProductByID, getRandomProduct, postProduct, updateProductByID, deleteProductByID, notFound } = require('../src/controllers/products.controller.js')
+const { getProducts, getProductByID, getRandomProduct, postProduct, updateProductByID, deleteProductByID, notFound } = require('../controllers/products.controller.js')
 
-const admin = true
 
 /* Getting all the products from the products.txt file. */
 productsRouter.get('/', getProducts)

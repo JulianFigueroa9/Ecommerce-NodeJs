@@ -5,7 +5,7 @@ const products = productsDao
 const randomProductDaoMem = require ('../daos/products/randomProductsDaoMem.js')
 const randomProducts = new randomProductDaoMem()
 
-
+const admin = true
 
 const getProducts = async (req, res = response) => {
     const allProducts = await products.getAll()

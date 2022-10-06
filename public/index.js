@@ -1,6 +1,5 @@
 const server = io().connect()
 
-
 /* ---------------------------------- Chat ---------------------------------- */
 
 const render = chatMessages => {
