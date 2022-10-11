@@ -3,6 +3,7 @@ const cookieParser = require("cookie-parser");
 const session = require('express-session')
 const logger = require("morgan");
 const MongoStore = require('connect-mongo');
+const passport = require('./src/middlewares/passport/passportLocal.middleware')
 
 const chatFileContainer = require('./src/containers/chatFileContainer.js')
 const exec = require("child_process").exec;
@@ -11,6 +12,8 @@ const { productsRouter, randomProductsRouter } = require('./src/routers/products
 const cartsRouter = require('./src/routers/cartsRouter.js')
 const sessionRouter = require('./src/routers/sessionRouter.js')
 const cookiesRouter = require('./src/routers/cookiesRouter.js')
+
+
 
 const readChat = new chatFileContainer('./utils/chat/normalizedMessages.json')
 const saveChat = new chatFileContainer('./utils/chat/nonNormalizedMessages.json')
@@ -22,11 +25,9 @@ app.use(express.json())
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended:true }))
 app.use(logger('dev'))
-app.use('/api/productos', productsRouter)
-app.use('/api/productos-test', randomProductsRouter)
-app.use('/api/carrito', cartsRouter)
 
-
+app.set('view engine', 'ejs')
+app.set('views', './src/views/pages')
 
 /* ----------------------------- MONGODB SESSION ---------------------------- */
 
@@ -36,19 +37,25 @@ app.use(session({
         mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true }
     }),
     secret: 'secreto',
-    resave: true,
-    saveUninitialized: true,
-    rolling: true,
     cookie: {
+        httpOnly: true,
+        secure: false,
         maxAge: 1000 * 60 * 10
-    }
+    },
+    resave: false,
+    saveUninitialized: false,
+    rolling: true
 }))
 
+app.use(passport.initialize())
+app.use(passport.session())
 
-app.use(cookieParser(process.env.COOKIES_SECRET || '1234'));
-app.use('/api/cookies', cookiesRouter)
 app.use('/api/session', sessionRouter)
-
+app.use('/api/cookies', cookiesRouter)
+app.use('/api/productos', productsRouter)
+app.use('/api/productos-test', randomProductsRouter)
+app.use('/api/carrito', cartsRouter)
+app.use(cookieParser(process.env.COOKIES_SECRET || '1234'));
 /* ----------------------------- CHAT WEBSOCKET ----------------------------- */
 
 const { Server: HTTPServer } = require('http')
@@ -99,3 +106,5 @@ io.on("connection", async socket => {
 const server = httpServer.listen(PORT, () => {
     console.log(`Escuchando en el puerto: ${server.address().port}`)
 })
+
+

@@ -9,8 +9,9 @@ const admin = true
 
 const getProducts = async (req, res = response) => {
     const allProducts = await products.getAll()
-    res.json(
-            allProducts
+    res.render('products', {
+        allProducts
+        }
     )
 }
 

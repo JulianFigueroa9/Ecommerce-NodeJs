@@ -53,5 +53,16 @@
       "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/woman5-512.png"
     },
     "message": "Hola!!!"
+  },
+  {
+    "author": {
+      "id": "julian@gmail.com",
+      "name": "julian",
+      "lastName": "Figueroa",
+      "age": "24",
+      "alias": "JulianF98",
+      "avatar": "https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png"
+    },
+    "message": "Hola"
   }
 ]

@@ -22,7 +22,13 @@
     align-self: center;
 }
 
-h1,h2{
+.productPhoto{
+    width: 100px;
+    height: 100px;
+    align-self: center;
+}
+
+h1,h2,h3{
     margin-top: 1%;
     margin-left: 1%;
 }
@@ -83,7 +89,7 @@ a{
 
 .productList{
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
     justify-content: center;
     align-items: flex-start;
     margin: 1%;

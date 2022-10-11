@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main.css">
+    <title>Productos</title>
+</head>
+<body>
+    <h3>PRODUCTOS</h3>
+        <div id="productsList">
+            <% allProducts.forEach((prod)=> { %>
+                <div class="productList">
+                    <h3>Producto <%= prod.id %></h3>
+                    <h4>Nombre: <%= prod.title %></h5>
+                    <p>Precio: $<%= prod.price %></p>
+                    <img width="100px" height="100px" class="productPhoto" src=<%= prod.thumbnail %> 
+                </div>
+            <% }) %>
+        </div>
+</body>
+</html>

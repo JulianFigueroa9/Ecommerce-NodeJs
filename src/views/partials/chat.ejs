@@ -1,0 +1,25 @@
+<div>
+    <h2 id="chatTitle">Centro de mensajes</h2>
+    <form onsubmit="return addMessage(this)" class="chatForm">
+        <input required="required" type="email" id="id" name="id" placeholder="Ingrese el mail">
+        <br>
+        <input required="required" type="text" id="name" name="name" placeholder="Ingrese su nombre">
+        <br>
+        <input required="required" type="text" id="lastName" name="lastName" placeholder="Ingrese su apellido">
+        <br>
+        <input required="required" type="number" id="age" name="age" placeholder="Ingrese su edad">
+        <br>
+        <input required="required" type="text" id="alias" name="alias" placeholder="Ingrese su alias">
+        <br>
+        <input required="required" type="text" id="avatar" name="avatar" placeholder="Ingrese su avatar">
+        <br>
+        <input required="required" type="text" id="message" name="message" placeholder="Escriba algo">
+        <br>
+        <input type="submit" value="Enviar mensaje" id="addMessageBtn">
+    </form>
+</div>
+<div>
+    <ul id="chat">
+
+    </ul>
+</div>

@@ -1,27 +1,12 @@
 const { response } = require("express");
-
-
-const postLogin = async (req, res = response) => {
-    try {
-      const { username, password } = req.body;
-      req.session.username = username;
-      if (username == "Julian" && password == "1234") {
-        return res.status(200).send(`<h1>Usuario autenticado exitosamente</h1>`)
-        
-      }
-      return res.status(400).send(`<h1>Datos incorrectos</h1>`);
-    } catch (err) {
-      res.status(500).json({
-        success: false,
-        message: err.message,
-      });
-    }
-}
+const passport = require('passport')
 
 const homepage = async (req, res = response) => {
   try {
-    res.status(200).write(`<h1>Hola ${req.session.username}, esta es tu visita numero ${req.session.visits}</h1>`)
-    res.end("<a href=" + "/api/session/logout" + ">Cerrar Sesion</a >");
+    res.status(200).write(`<h1>Hola ${req.session.passport.user.username}, esta es tu visita numero ${req.session.visits}</h1>`)
+    res.render('index', {
+      username: req.session.passport.user.username
+    })
   } catch (err) {
     res.status(500).json({
       success: false,
@@ -30,16 +15,51 @@ const homepage = async (req, res = response) => {
   }
 }
 
+const getSignUp = async (req, res = response) => {
+  res.render('signUp')
+}
+
+const postSignUp = (req, res = response) => {
+  res.redirect('/')
+}
+
+const authSignUp = passport.authenticate('signup', {failureRedirect: '/api/session/signUpError' }) 
+
+
+const signUpError = async (req, res = response) => {
+  res.render('signUpError')
+}
+
+const loginError = async (req, res = response) => {
+  res.render('loginError')
+}
+
+const getLogin = async (req, res = response) => {
+  if (req.isAuthenticated()){
+    const { user } = req.user
+    console.log('usuario logeado')
+    res.render('index', user)
+  } else {
+    console.log('usuario no logeado')
+    res.render('login')
+  }
+}
+
+const postLogin = (req, res = response) => {
+  const { username, password } = req.body
+  res.render('index') 
+}
+
+const authLogin = passport.authenticate('login', {
+  successRedirect: '/', 
+  failureRedirect: '/api/session/loginError'
+})
 
 const logout = async (req, res = response) => {
     try {
-      req.session.destroy(err => {
-          if(err){
-              return res.status(500).send(`<h1>No se pudo cerrar sesion</h1>`)
-          }
-      })
+      req.logout()
       setTimeout(()=> {
-        res.redirect('/')
+        res.render('index')
       }, 2000)
     } catch (err) {
       res.status(500).json({
@@ -51,6 +71,13 @@ const logout = async (req, res = response) => {
 
 module.exports = {
     homepage,
-    logout,
-    postLogin
+    getSignUp,
+    postSignUp,
+    authSignUp,
+    signUpError,
+    getLogin,
+    loginError,
+    postLogin,
+    authLogin,
+    logout
 }

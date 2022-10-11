@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <title>VS Pastelería</title>
+</head>
+<body>
+    <%- include('../partials/navBar.ejs') %>
+    <h1>VS PASTELERÍA</h1>
+    <h2>Ingrese el producto a agregar</h2>
+    <div>
+        <%- include('../partials/productsForm.ejs') %>
+    </div>
+    <div>
+        <%- include('../partials/chat.ejs') %>
+    </div>
+
+
+    <script src="./index.js"></script>
+</body>
+</html> 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>SIGN UP</h1>
+    <form class="signupForm" action="http://localhost:8080/api/session/signup" method="POST">
+        <div class="signupInput">
+            <label for="Usuario"></label>
+            <input required="required" type="text" id="username" placeholder="Ingresa un usuario"/>
+        </div>
+        <div class="signupInput">
+            <label for="Password"></label>
+            <input required="required" type="password" id="password" placeholder="Ingresa una contraseña"/>
+        </div>
+        <div class="signupInput">
+            <input type="submit" id="button" value="Registrarse" />
+            <button>
+                <a href="./login">Ir a login</a>
+            </button>
+            
+        </div>
+    </form>
+
+</body>
+</html>
