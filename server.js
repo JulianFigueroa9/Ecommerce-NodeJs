@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const cookieParser = require("cookie-parser");
 const session = require('express-session')
@@ -8,23 +10,25 @@ const passport = require('./src/middlewares/passport/passportLocal.middleware')
 const chatFileContainer = require('./src/containers/chatFileContainer.js')
 const exec = require("child_process").exec;
 
+const { parsedArgs, mongoDBURL, config} = require('./config.js')
+
 const { productsRouter, randomProductsRouter } = require('./src/routers/productsRouter.js')
 const cartsRouter = require('./src/routers/cartsRouter.js')
 const sessionRouter = require('./src/routers/sessionRouter.js')
 const cookiesRouter = require('./src/routers/cookiesRouter.js')
-
-
+const infoServerRouter = require('./src/routers/infoServerRouter.js')
+const randomNumbersRouter = require('./src/routers/randomNumbersRouter.js')
 
 const readChat = new chatFileContainer('./utils/chat/normalizedMessages.json')
 const saveChat = new chatFileContainer('./utils/chat/nonNormalizedMessages.json')
 
-
-const PORT = process.env.PORT || 8080
 const app = express()
 app.use(express.json())
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended:true }))
 app.use(logger('dev'))
+
+
 
 app.set('view engine', 'ejs')
 app.set('views', './src/views/pages')
@@ -36,14 +40,14 @@ app.use(session({
         mongoUrl: process.env.MONGODB_URL,
         mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true }
     }),
-    secret: 'secreto',
+    secret: config.sessionSecret,
     cookie: {
         httpOnly: true,
         secure: false,
         maxAge: 1000 * 60 * 10
     },
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     rolling: true
 }))
 
@@ -55,7 +59,9 @@ app.use('/api/cookies', cookiesRouter)
 app.use('/api/productos', productsRouter)
 app.use('/api/productos-test', randomProductsRouter)
 app.use('/api/carrito', cartsRouter)
-app.use(cookieParser(process.env.COOKIES_SECRET || '1234'));
+app.use('/api/info', infoServerRouter)
+app.use('/api/randoms', randomNumbersRouter)
+app.use(cookieParser(config.cookiesSecret || '1234'));
 /* ----------------------------- CHAT WEBSOCKET ----------------------------- */
 
 const { Server: HTTPServer } = require('http')
@@ -101,6 +107,7 @@ io.on("connection", async socket => {
 
 });
 
+const PORT = parsedArgs.port
 
 /* Creating a server and listening to the port 8080. */
 const server = httpServer.listen(PORT, () => {
