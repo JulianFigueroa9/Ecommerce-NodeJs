@@ -10,7 +10,7 @@ const passport = require('./src/middlewares/passport/passportLocal.middleware')
 const chatFileContainer = require('./src/containers/chatFileContainer.js')
 const exec = require("child_process").exec;
 
-const { parsedArgs, mongoDBURL, config} = require('./config.js')
+const { parsedArgs, config} = require('./config.js')
 
 const { productsRouter, randomProductsRouter } = require('./src/routers/productsRouter.js')
 const cartsRouter = require('./src/routers/cartsRouter.js')
@@ -28,6 +28,8 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended:true }))
 app.use(logger('dev'))
 
+const numCPUs = require('os').cpus.lenght
+const cluster = require('cluster')
 
 
 app.set('view engine', 'ejs')
@@ -109,9 +111,24 @@ io.on("connection", async socket => {
 
 const PORT = parsedArgs.port
 
-/* Creating a server and listening to the port 8080. */
-const server = httpServer.listen(PORT, () => {
-    console.log(`Escuchando en el puerto: ${server.address().port}`)
-})
+const MODE = parsedArgs.mode
+console.log(MODE)
+
+if (MODE == "CLUSTER" && cluster.isPrimary) {
+    console.log(`Puerto: ${PORT} - Modo: ${MODE}`);
+    console.log(`Master ${process.pid} is running`)
+    for (let i = 0; i < numCPUs; i++) {
+        cluster.fork()
+    }
+    cluster.on('exit', (worker, code, signal) => {
+        console.log(`worker ${worker.process.pid} died`)
+    })
+} else {
+    httpServer.listen(PORT, (err) => {
+        if (err) throw new Error(`No se pudo iniciar el servidor: ${err}`)
+        console.log(`Servidor corriendo en el puerto ${PORT} - PID WORKER ${process.pid}`)
+    })
+}
+
 
 

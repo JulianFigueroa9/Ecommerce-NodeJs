@@ -7,6 +7,7 @@ const randomNumbersRouter = Router()
 
 randomNumbersRouter.get('/', (req, res ) => {
     let { cant } = req.query
+    console.log(cant)
     const randomNumbers = fork('./utils/randomNumbersQty/randomNumbersQty.js', [cant])
     randomNumbers.send('start')
     randomNumbers.on('message', msg => {
